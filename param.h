@@ -11,4 +11,6 @@
 #define LOGSIZE      (MAXOPBLOCKS*3)  // max data blocks in on-disk log
 #define NBUF         (MAXOPBLOCKS*3)  // size of disk block cache
 #define FSSIZE       1000  // size of file system in blocks
-
+#define INTERV 5     // MODIFICAÇÃO: Quantidade de tempo que o processo deve executar antes de ser preemptado
+#define _1T02 200    // MODIFICAÇÃO: Quantidade de tempo que o processo de prioridade 1 deve esperar antes de subir de prioridade
+#define _2T03 300    // MODIFICAÇÃO: Quantidade de tempo que o processo de prioridade 2 deve esperar antes de subir de prioridade

@@ -13,7 +13,7 @@ struct gatedesc idt[256];
 extern uint vectors[];  // in vectors.S: array of 256 entry pointers
 struct spinlock tickslock;
 uint ticks;
-
+uint time_slice; // MODIFICAÇÂO: quantidade de ticks que um processo rodou
 void
 tvinit(void)
 {
@@ -51,6 +51,8 @@ trap(struct trapframe *tf)
     if(cpuid() == 0){
       acquire(&tickslock);
       ticks++;
+      time_slice++;
+      update_time(); // MODIFICAÇÂO
       wakeup(&ticks);
       release(&tickslock);
     }
@@ -103,8 +105,10 @@ trap(struct trapframe *tf)
   // Force process to give up CPU on clock tick.
   // If interrupts were on while locks held, would need to check nlock.
   if(myproc() && myproc()->state == RUNNING &&
-     tf->trapno == T_IRQ0+IRQ_TIMER)
-    yield();
+     tf->trapno == T_IRQ0+IRQ_TIMER){
+      if(time_slice >= INTERV) //MODIFICAÇÂO: processo rodou mais que INTERV ticks
+        yield();
+     }
 
   // Check if the process has been killed since we yielded
   if(myproc() && myproc()->killed && (tf->cs&3) == DPL_USER)

@@ -23,6 +23,10 @@ int getpid(void);
 char* sbrk(int);
 int sleep(int);
 int uptime(void);
+int cps(void); // MODIFICAÇÂO
+int wait2(int*, int*,int*); // MODIFICAÇÂO
+void yield(void); // MODIFICAÇÂO
+int change_prio(int); // MODIFICAÇÂO
 
 // ulib.c
 int stat(const char*, struct stat*);

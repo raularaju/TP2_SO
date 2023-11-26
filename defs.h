@@ -120,6 +120,10 @@ void            userinit(void);
 int             wait(void);
 void            wakeup(void*);
 void            yield(void);
+int             cps(void); // MODIFICAÇÂO
+void            update_time(void); // MODIFICAÇÂO
+int             wait2(int*, int*, int*); // MODIFICAÇÂO
+int             change_prio(int); // MODIFICAÇÂO
 
 // swtch.S
 void            swtch(struct context**, struct context*);
@@ -162,6 +166,7 @@ void            timerinit(void);
 // trap.c
 void            idtinit(void);
 extern uint     ticks;
+extern uint     time_slice; // MODIFICAÇÂO: quantidade de ticks que um processo rodou
 void            tvinit(void);
 extern struct spinlock tickslock;
 
