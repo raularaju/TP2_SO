@@ -375,7 +375,7 @@ int wait2(int *retime, int *rutime, int *stime) {
 //      via swtch back to the scheduler.
 //MODIFICAÇÂO: INÍCIO
 // scheduler RR
-void
+/* void
 scheduler(void)
 {
   struct proc *p;
@@ -409,9 +409,9 @@ scheduler(void)
     release(&ptable.lock);
 
   }
-}
+} */
 // scheduler Priority Queue
-/* void
+void
 scheduler(void)
 {
   struct proc *p;
@@ -445,6 +445,7 @@ scheduler(void)
         c->proc = high_p;
         switchuvm(high_p);
         high_p->state = RUNNING;
+        time_slice = 0;
         swtch(&(c->scheduler), high_p->context);
         switchkvm();
         // Process is done running for now.
@@ -454,7 +455,7 @@ scheduler(void)
     }
     release(&ptable.lock); 
   }
-} */
+}
 //MODIFICAÇÂO: FIM
 
 // Enter scheduler.  Must hold only ptable.lock

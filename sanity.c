@@ -8,22 +8,23 @@
 #define RETIME 0
 #define STIME 1
 #define RUTIME 2
-/* int empty_loop(int n)
+int empty_loop(int n)
 {
     int fat = 1;
-    for (int i = 0; i < n; i++)
+    for (int i = 1; i < n; i++)
     {
         fat *= i;
+        printf(1, "fat: %d\n", fat);
     }
     return fat;
-} */
-void empty_loop(){
+}
+/* void empty_loop(){
     for (int i = 0; i < N; i++)
     {
         ;    
     }
     
-}
+} */
 int main(int argc, char *argv[])
 {
     if (argc != 2)
@@ -46,11 +47,11 @@ int main(int argc, char *argv[])
             {
             case CPU_BOUND: // CPU-BOUND
                 for (int i = 0; i < 100; i++)
-                    empty_loop();
+                    empty_loop(i);
                 break;
             case S_CPU_BOUND: // S-CPU
                 for (int i = 0; i < 100; i++){
-                    empty_loop();
+                    empty_loop(i);
                     yield();
                 }
                 break;
@@ -98,16 +99,8 @@ int main(int argc, char *argv[])
             break;
         }
     }
-    for (int i = 0; i < 3; i++)
-    {
-        for (int j = 0; j < 3; j++)
-        {
-            sum[i][j] /= n;
-        }
-    }
+
     
-
-
     printf(1, "\n\nCPU bound:\nAverage ready time: %d\nAverage running time: %d\nAverage sleeping time: %d\nAverage turnaround time: %d\n\n\n", sum[CPU_BOUND][RETIME]/ n, sum[CPU_BOUND][RUTIME] / n, sum[CPU_BOUND][STIME] / n, (sum[CPU_BOUND][RETIME] + sum[CPU_BOUND][RUTIME] + sum[CPU_BOUND][STIME]) / n);
     printf(1, "CPU-S bound:\nAverage ready time: %d\nAverage running time: %d\nAverage sleeping time: %d\nAverage turnaround time: %d\n\n\n", sum[S_CPU_BOUND][RETIME] / n, sum[S_CPU_BOUND][RUTIME] / n, sum[S_CPU_BOUND][STIME] / n, (sum[S_CPU_BOUND][RETIME] + sum[S_CPU_BOUND][RUTIME] + sum[S_CPU_BOUND][STIME]) / n);
     printf(1, "I/O bound:\nAverage ready time: %d\nAverage running time: %d\nAverage sleeping time: %d\nAverage turnaround time: %d\n\n\n", sum[IO_BOUND][RETIME] / n, sum[IO_BOUND][RUTIME] / n, sum[IO_BOUND][STIME] / n, (sum[IO_BOUND][RETIME] + sum[IO_BOUND][RUTIME] + sum[IO_BOUND][STIME]) / n);
